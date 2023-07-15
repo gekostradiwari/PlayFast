@@ -8,24 +8,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import model.DAOS.DatiPagamentoDM;
 import model.DAOS.FeedbackDM;
 import model.DAOS.IndirizzoSpedizioneDM;
-import model.DAOS.PersonaFisicaDM;
 import model.DAOS.ProductModelDM;
 import model.DAOS.UtenteDM;
 import model.beans.DatiPagamentoBean;
 import model.beans.FeedbackBean;
 import model.beans.IndirizzoSpedizioneBean;
-import model.beans.PersonaFisicaBean;
 import model.beans.ProductBean;
 import model.beans.UtenteBean;
 
