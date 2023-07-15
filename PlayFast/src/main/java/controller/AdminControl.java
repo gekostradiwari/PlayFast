@@ -41,6 +41,7 @@ import model.beans.*;
 @WebServlet("/AdminControl")
 public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	//ciaociao
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
