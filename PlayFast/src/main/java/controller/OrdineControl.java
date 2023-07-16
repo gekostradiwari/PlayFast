@@ -48,8 +48,8 @@ public class OrdineControl extends HttpServlet {
 					IndirizzoSpedizioneDM indirizzoDAO=new IndirizzoSpedizioneDM();
 					DatiPagamentoDM datiPagamentoDAO=new DatiPagamentoDM();
 					try {
-						ArrayList<IndirizzoSpedizioneBean> indirizzi= indirizzoDAO.doRetrieveByUtente(utente.getEmail());
-						DatiPagamentoBean datiPagamento= datiPagamentoDAO.doRetrieveByKey(utente.getDatiPagamento());
+						ArrayList<IndirizzoSpedizioneBean> indirizzi= indirizzoDAO.doRetrieveByUtente(utente.getMail());
+						DatiPagamentoBean datiPagamento= datiPagamentoDAO.doRetrieveByKey(utente.);
 						request.setAttribute("indirizziSpedizione", indirizzi);
 						request.setAttribute("datiPagamento", datiPagamento);
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/checkoutOrdine.jsp");
