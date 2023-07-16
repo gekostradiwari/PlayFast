@@ -32,6 +32,9 @@ public class OrdineControl extends HttpServlet {
 	
 	private OrdineDM ordineDAO = new OrdineDM();
 	private ComposizioneDM composizioneDM = new ComposizioneDM();
+	
+	
+	
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
