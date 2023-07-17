@@ -1,18 +1,13 @@
-/*body {
-	display: flex;
-	align-items: center;
-	padding-top: 40px;
-	padding-bottom: 40px;
-	background: linear-gradient(to bottom right, #cdffd8, #94b9ff);
-}
-*/
-.modal-sheet .modal-dialog {
-	width: 380px;
-	transition: bottom .75s ease-in-out;
+body {
+	background-image: url("Sfondo4.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
 }
 
-.modal-sheet .modal-footer {
-	padding-bottom: 2rem;
+.container {
+	max-width: 960px;
 }
 
 .bd-placeholder-img {
@@ -32,11 +27,10 @@
 .b-example-divider {
 	width: 100%;
 	height: 3rem;
-	background-color: rgba(0, 0, 0, .1);
-	border: solid rgba(0, 0, 0, .15);
+	background-color: #ffff;
+	border: solid #ffff;
 	border-width: 1px 0;
-	box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em
-		rgba(0, 0, 0, .15);
+	box-shadow: inset 0 .5em 1.5em #ffff, inset 0 .125em .5em #ffff;
 }
 
 .b-example-vr {
@@ -69,14 +63,14 @@
 }
 
 .btn-bd-primary {
-	--bd-violet-bg: #712cf9;
+	--bd-violet-bg: #ffffff;
 	--bd-violet-rgb: 112.520718, 44.062154, 249.437846;
 	--bs-btn-font-weight: 600;
 	--bs-btn-color: var(--bs-white);
 	--bs-btn-bg: var(--bd-violet-bg);
 	--bs-btn-border-color: var(--bd-violet-bg);
 	--bs-btn-hover-color: var(--bs-white);
-	--bs-btn-hover-bg: #6528e0;
+	--bs-btn-hover-bg: #ffffff;
 	--bs-btn-hover-border-color: #6528e0;
 	--bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
 	--bs-btn-active-color: var(--bs-btn-hover-color);

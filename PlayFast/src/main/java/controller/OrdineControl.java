@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.DAOS.ComposizioneDM;
+import model.DAOS.DatiPagamento;
 import model.DAOS.DatiPagamentoDM;
 import model.DAOS.IndirizzoSpedizioneDM;
 import model.DAOS.OrdineDM;
@@ -41,6 +42,7 @@ public class OrdineControl extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			UtenteBean utente = (UtenteBean) session.getAttribute("Utente");
+			OrdineBean ordine = (OrdineBean) session.getAttribute("idOrdine");
 			if(utente == null) {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/login.jsp");
 				dispatcher.forward(request, response);
@@ -49,18 +51,17 @@ public class OrdineControl extends HttpServlet {
 				String action = request.getParameter("action");
 				
 				if(action.equals("datiOrdineUtente")) {
-					IndirizzoSpedizioneDM indirizzoDAO=new IndirizzoSpedizioneDM();
-					DatiPagamentoDM datiPagamentoDAO=new DatiPagamentoDM();
+					OrdineBean datiOrdini = new OrdineBean();
 					try {
-						ArrayList<IndirizzoSpedizioneBean> indirizzi= indirizzoDAO.doRetrieveByUtente(utente.getMail());
-						DatiPagamentoBean datiPagamento= datiPagamentoDAO.doRetrieveByKey(utente.);
-						request.setAttribute("indirizziSpedizione", indirizzi);
-						request.setAttribute("datiPagamento", datiPagamento);
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/checkoutOrdine.jsp");
-						dispatcher.forward(request, response);	
+						datiOrdini = ordineDAO.doRetrieveByKey(ordine.getID());
 					} catch (SQLException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					request.setAttribute("StatoOrdine", datiOrdini.getStato());
+					request.setAttribute("datiPagamento", datiOrdini.getModPagamento());
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/checkoutOrdine.jsp");
+					dispatcher.forward(request, response);
 				}
 					
 						
@@ -72,24 +73,23 @@ public class OrdineControl extends HttpServlet {
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
 						dispatcher.forward(request, response);
 					}else {
-						OrdineBean ordine = new OrdineBean();
+						OrdineBean OrdineCheckOut = new OrdineBean();
 						try {
-							ordine.setID(ordineDAO.getIdCodice());
+							OrdineCheckOut.setID(ordineDAO.getIdCodice());
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
-						ordine.setData(new Date());
-						ordine.setStato("Ordinato");
-						ordine.setIndirizzoSpedizione(request.getParameter("indirizzo"));
-						ordine.setUtente(utente.getEmail());
-						ordine.setTotale(carrello.getTotale());
+						OrdineCheckOut.setDataPrenotazione(ordine.getDataPrenotazione());
+						OrdineCheckOut.setStato("Pagato");
+						OrdineCheckOut.setModPagamento(ordine.getModPagamento());
+						OrdineCheckOut.setUtente(utente.getId());
 						try {
-							ordineDAO.doSave(ordine);
+							ordineDAO.doSave(OrdineCheckOut);
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
 						
-						for(ProductBean product : prodotti) {
+						/*for(ProductBean product : prodotti) {
 							ComposizioneBean composizione = new ComposizioneBean();
 							composizione.setOrdine(ordine.getID());
 							composizione.setProdotto(product.getCodice());
@@ -101,7 +101,7 @@ public class OrdineControl extends HttpServlet {
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
-						}
+						}*/
 						
 						request.getSession().removeAttribute("carrello");
 						carrello = new Carrello();
@@ -113,39 +113,25 @@ public class OrdineControl extends HttpServlet {
 				}
 				
 				if(action.equals("dettagliOrdine")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					ArrayList<ProductBean> products = new ArrayList<ProductBean>();
-					IndirizzoSpedizioneDM indirizzoDAO = new IndirizzoSpedizioneDM();
+					int id = Integer.parseInt(request.getParameter("idOrdine"));
 					OrdineDM ordineDAO = new OrdineDM();
-					IndirizzoSpedizioneBean indirizzo = null;
+					OrdineBean ordineCompleto = new OrdineBean();
 					
 					try {
-						ArrayList<ComposizioneBean> composizioni = composizioneDM.doRetrieveByOrdine(id);
+						ordineCompleto = ordineDAO.doRetrieveByKey(id);
 						
-						ProductModelDM productDAO = new ProductModelDM();
-						for(ComposizioneBean composizione : composizioni) {
-							ProductBean product = productDAO.doRetrieveByKey(composizione.getProdotto());
-							product.setPrezzo(composizione.getPrezzoAcquisto());
-							product.setIva(composizione.getIvaAcquisto());
-							product.setQtaCarrello(composizione.getQuantita());
-							products.add(product);
-						}
-						OrdineBean o = ordineDAO.doRetrieveByKey(id);
-						indirizzo = indirizzoDAO.doRetrieveByKey(Integer.parseInt(o.getIndirizzoSpedizione()));
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 					
-					String indCompleto = indirizzo.getVia() + " Citt� " + indirizzo.getCitta() + " CAP " + indirizzo.getCap();
-					request.setAttribute("dettagliOrdine", products);
-					request.setAttribute("indirizzo", indCompleto);
+					request.setAttribute("dettagliOrdine", ordineCompleto);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/dettagliOrdine.jsp");
 					dispatcher.forward(request, response);
 				}
 		
 				if(action.equals("viewOrdini")) {
 					try {
-						ArrayList<OrdineBean> ordini = ordineDAO.doRetrieveAllByUtente(utente.getEmail());
+						ArrayList<OrdineBean> ordini = ordineDAO.doRetrieveAllByUtente(utente.getId());
 						request.setAttribute("ordini", ordini);
 					} catch (SQLException e) {
 						e.printStackTrace();

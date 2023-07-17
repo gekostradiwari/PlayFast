@@ -59,6 +59,10 @@ public class OrdineBean {
 		this.modPagamento = modPagamento;
 	}
 
+
+	
+	
+
 	
 	
 	
