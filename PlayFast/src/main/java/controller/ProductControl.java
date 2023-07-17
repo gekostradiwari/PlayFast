@@ -36,11 +36,11 @@ public class ProductControl extends HttpServlet {
 		
 		if(action != null) {
 			if(action.equals("ViewProdotti")) {
-				ArrayList<ProductBean> prodotti = null;
-				int cat = Integer.parseInt(request.getParameter("cat"));
+				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
 				try {
-					prodotti = model.doRetrieveCategoria(cat);
+					prodotti = model.doRetrieveAll("id");
 				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				request.setAttribute("prodotti", prodotti);
@@ -50,17 +50,13 @@ public class ProductControl extends HttpServlet {
 			
 			if(action.equals("ViewProdotto")) {
 				ProductBean prodotto = null;
-				ArrayList<FeedbackBean> f = null;
-				FeedbackDM fDAO = new FeedbackDM();
 				
-				String cod = request.getParameter("codice");
+				int cod = Integer.getInteger(request.getParameter("codice"));
 				try {
 					prodotto = model.doRetrieveByKey(cod);
-					f = fDAO.doRetrieveByProduct(cod);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				request.setAttribute("feedbacks", f);
 				request.setAttribute("prodotto", prodotto);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/prodotto.jsp");
 				dispatcher.forward(request, response);
@@ -68,7 +64,7 @@ public class ProductControl extends HttpServlet {
 			
 			if(action.equals("AddToCarrello")) {
 				try {
-					carrello.addProduct(request.getParameter("codice"));
+					carrello.addProduct(Integer.getInteger(request.getParameter("codice")));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -78,19 +74,11 @@ public class ProductControl extends HttpServlet {
 			}
 			
 			if(action.equals("RemoveToCarrello")) {
-				carrello.removeProduct(request.getParameter("codice"));
+				carrello.removeProduct(Integer.getInteger(request.getParameter("codice")));
 				request.getSession().setAttribute("carrello", carrello);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/carrello.jsp");
 				dispatcher.forward(request, response);
-			}
-			
-			if(action.equals("DeleteToCarrello")) {
-				carrello.deleteProduct(request.getParameter("codice"));
-				request.getSession().setAttribute("carrello", carrello);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/carrello.jsp");
-				dispatcher.forward(request, response);
-			}
-			
+			}			
 		}
 	}
 

@@ -26,13 +26,13 @@ import model.beans.FeedbackBean;
 import model.beans.IndirizzoSpedizioneBean;
 import model.beans.ProductBean;
 import model.beans.UtenteBean;
+import model.beans.OrdineBean;
+import model.DAOS.OrdineDM;
 
 
 @WebServlet("/UtenteControl")
 public class UtenteControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private IndirizzoSpedizioneDM indirizzoDAO= new IndirizzoSpedizioneDM();
 	private DatiPagamentoDM datiDAO= new DatiPagamentoDM();
     	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -48,10 +48,14 @@ public class UtenteControl extends HttpServlet {
 			
 			if(action.equals("viewDatiPagamentoSpedizione")) {
 				try {
-					DatiPagamentoBean dati = datiDAO.doRetrieveByKey(utente.getDatiPagamento());
-					request.setAttribute("datiPagamento", dati);
-					ArrayList<IndirizzoSpedizioneBean> indirizzi = indirizzoDAO.doRetrieveByUtente(utente.getEmail());
-					request.setAttribute("indirizzi", indirizzi);
+					ArrayList<OrdineBean> ordini = new ArrayList<OrdineBean>();
+					ArrayList<String> datiPagamento = new ArrayList<String>();
+					OrdineDM Ordini = new OrdineDM();
+					ordini = Ordini.doRetrieveAllByUtente(utente.getId());
+					for(OrdineBean i : ordini) {
+						datiPagamento.add(i.getModPagamento());
+					}
+					request.setAttribute("datiPagamento", datiPagamento);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -59,26 +63,8 @@ public class UtenteControl extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			
-			if(action.equals("addIndirizzoSpedizione")) {
-				String via=request.getParameter("via");
-				String cap=request.getParameter("cap");
-				String citta=request.getParameter("citta");
-				IndirizzoSpedizioneBean indirizzo=new IndirizzoSpedizioneBean();
-				indirizzo.setVia(via);
-				indirizzo.setCap(cap);
-				indirizzo.setCitta(citta);
-				indirizzo.setUtente(utente.getEmail());
-				try {
-					indirizzoDAO.doSave(indirizzo);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				request.setAttribute("operazione", "L'aggiunta dell'indirizzo di spedizione � avvenuta correttamente");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
-				dispatcher.forward(request, response);
-			}
 			
-			if(action.equals("addDatiPagamento")) {
+			/*if(action.equals("addDatiPagamento")) {
 				String numeroCarta=request.getParameter("carta");
 				int cvv=Integer.parseInt(request.getParameter("cvv"));
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,45 +93,17 @@ public class UtenteControl extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
 				dispatcher.forward(request, response);
 			}
-			
-			if(action.equals("feedback")) {
-				ProductModelDM prodottoDAO = new ProductModelDM();
-				ArrayList<ProductBean> prodotti = prodottoDAO.doRetrieveProductBuy(utente.getEmail());
-				request.setAttribute("prodottiBuy", prodotti);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/feedback.jsp");
-				dispatcher.forward(request, response);
-			}
-			
-			if(action.equals("valutazione")) {
-				FeedbackBean f = new FeedbackBean();
-				f.setValutazione(Integer.parseInt(request.getParameter("val")));
-				f.setCommento(request.getParameter("commento"));
-				f.setEmail(request.getParameter("utente"));
-				f.setProdotto(request.getParameter("prodotto"));
-				
-				FeedbackDM feedbackDAO = new FeedbackDM();
-				try {
-					feedbackDAO.doSave(f);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				request.setAttribute("operazione", "Grazie per il tuo feedback. Il tuo parere per noi � molto importante.");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
-				dispatcher.forward(request, response);
-			}
+			*/
 			
 			if(action.equals("viewDatiAnagrafica")) {
-				PersonaFisicaBean persona = null;
-				
-				if(utente.getTipo().equalsIgnoreCase("persona fisica")) {
-					PersonaFisicaDM personaDAO = new PersonaFisicaDM();
+				UtenteBean persona = null;
+					UtenteDM personaDAO = new UtenteDM();
 					try {
-						 persona = personaDAO.doRetrieveByEmail(utente.getEmail());
+						 persona = personaDAO.doRetrieve(utente.getMail(), utente.getPassword());
 						 request.setAttribute("anagrafica", persona);
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				}
 				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/datiAnagrafici.jsp");
 				dispatcher.forward(request, response);
