@@ -1,0 +1,76 @@
+@charset "UTF-8";
+body {
+    font-size: .875rem;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+/* ... Altre regole del CSS esistente ... */
+
+/* Nuove regole per la pagina HTML fornita */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+label, input, textarea {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+    width: 100%;
+    padding: 8px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+        width: 100%;
+    }
+}
+
+/* Regole per la tabella (non inclusa nella pagina HTML fornita) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
