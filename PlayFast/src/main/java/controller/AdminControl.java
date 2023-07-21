@@ -229,11 +229,15 @@ public class AdminControl extends HttpServlet {
 			product.setNome(request.getParameter("Nome"));
 			product.setTelefono(request.getParameter("Telefono"));
 			product.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
-			product.setStruttura(request.getParameter("Struttura"));
-			Calendar calendar = new GregorianCalendar();
-			LocalDate localDate = LocalDate.parse(request.getParameter("dataCampo"));
-			GregorianCalendar gregorianCalendar = GregorianCalendar.from(localDate.atStartOfDay(java.time.ZoneId.systemDefault()));
-			product.setDataCampo(gregorianCalendar);
+			product.setStruttura(request.getParameter("Struttura"));			
+			Date data = null;
+			try {
+				data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dataCampo"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			product.setDataCampo(data);
 			product.setTipo(request.getParameter("Tipo"));
 			product.setEmail(request.getParameter("Email"));
 			product.setUrlImmagine("fotoProdotti/"+request.getParameter("urlImmagine"));
@@ -257,10 +261,14 @@ public class AdminControl extends HttpServlet {
 			product.setTelefono(request.getParameter("Telefono"));
 			product.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
 			product.setStruttura(request.getParameter("Struttura"));
-			Calendar calendar = new GregorianCalendar();
-			LocalDate localDate = LocalDate.parse(request.getParameter("dataCampo"));
-			GregorianCalendar gregorianCalendar = GregorianCalendar.from(localDate.atStartOfDay(java.time.ZoneId.systemDefault()));
-			product.setDataCampo(gregorianCalendar);
+			Date data = null;
+			try {
+				data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dataCampo"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			product.setDataCampo(data);
 			product.setTipo(request.getParameter("Tipo"));
 			product.setEmail(request.getParameter("Email"));
 			product.setUrlImmagine("fotoProdotti/"+request.getParameter("urlImmagine"));

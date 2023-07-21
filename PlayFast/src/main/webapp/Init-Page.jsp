@@ -24,13 +24,13 @@
 						</div>
 						<form method="GET" action="/PlayFast/ProductControl">
 							<div class="form-group">
-								<input class="form-control" type="text" placeholder="Citta'">
+								<input class="form-control" type="text" placeholder="Citta'" name="Citta">
 								<span class="form-label">Citta'</span>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<input class="form-control" type="date" required> <span
+										<input class="form-control" type="date" name="Data" required> <span
 											class="form-label">DATA</span>
 									</div>
 								</div>
@@ -38,7 +38,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<select class="form-control" required>
+										<select class="form-control" name="Sport" required>
 											<option value="" selected hidden>SPORT</option>
 											<option>Basket</option>
 											<option>Calcio a 5</option>
@@ -52,7 +52,7 @@
 								</div>
 								 <div class="col-md-6">
 									<div class="form-group">
-										<select class="form-control" required>
+										<select class="form-control" name="Ora" required>
 											<option value="" selected hidden>ORA</option>
 											<option>01:00</option>
 											<option>02:00</option>

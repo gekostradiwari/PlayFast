@@ -3,7 +3,6 @@ import model.beans.*;
 import database.*;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +10,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 public class ProductModelDM implements ProductModel {
 
@@ -34,7 +32,7 @@ public class ProductModelDM implements ProductModel {
 			preparedStatement.setString(2, product.getNome());
 			preparedStatement.setString(3, product.getTelefono());
 			preparedStatement.setString(4, product.getStruttura());
-			preparedStatement.setDate(5, (Date) product.getDataCampo().getTime());
+			preparedStatement.setDate(5,   new java.sql.Date(product.getDataCampo().getTime()));
 			preparedStatement.setString(6, product.getTipo());
 			preparedStatement.setString(7, product.getEmail());
 			preparedStatement.setDouble(8, product.getPrezzo());
@@ -69,7 +67,7 @@ public class ProductModelDM implements ProductModel {
 			preparedStatement.setString(2, product.getNome());
 			preparedStatement.setString(3, product.getTelefono());
 			preparedStatement.setString(4, product.getStruttura());
-			preparedStatement.setDate(5, (Date) product.getDataCampo().getTime());
+			preparedStatement.setDate(5, new java.sql.Date(product.getDataCampo().getTime()));
 			preparedStatement.setString(6, product.getTipo());
 			preparedStatement.setString(7, product.getEmail());
 			preparedStatement.setDouble(8, product.getPrezzo());
@@ -111,9 +109,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setNome(rs.getString("nome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setStruttura(rs.getString("struttura"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataCampo"));
-				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
@@ -186,9 +182,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setNome(rs.getString("nome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setStruttura(rs.getString("struttura"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataCampo"));
-				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
@@ -231,9 +225,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setNome(rs.getString("nome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setStruttura(rs.getString("struttura"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataCampo"));
-				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
@@ -252,7 +244,7 @@ public class ProductModelDM implements ProductModel {
 		return products;
 	}
 	
-	public ArrayList<ProductBean> doRetrieveProductBuy (int id_utente){
+	public synchronized  ArrayList<ProductBean> doRetrieveProductBuy (int id_utente){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -284,7 +276,7 @@ public class ProductModelDM implements ProductModel {
 		
 		return products;
 	}
-	public ArrayList<ProductBean> doRetrieveByAdmin(int id) throws SQLException{
+	public synchronized ArrayList<ProductBean> doRetrieveByAdmin(int id) throws SQLException{
 		ArrayList<ProductBean> result = new ArrayList<ProductBean>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -306,9 +298,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setNome(rs.getString("nome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setStruttura(rs.getString("struttura"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataCampo"));
-				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
@@ -333,20 +323,20 @@ public class ProductModelDM implements ProductModel {
 	}
 
 	@Override
-	public ArrayList<ProductBean> doRetriveByData(String citta, java.util.Date data, String sport, LocalTime time) throws SQLException {
+	public synchronized  ArrayList<ProductBean> doRetriveByData(String citta, Date data, String sport, LocalTime time) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
 		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + "," +"ora"
-						 + " WHERE citta = ? AND dataCampo = ? AND tipo = ? AND ora.id_campo = product.id AND ora.disponibilita = 1 AND ora.ora = ?";
+						 + " WHERE citta = ? AND dataCampo = ? AND tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, citta);
-			preparedStatement.setString(2, data.toString());
+			preparedStatement.setDate(2, new java.sql.Date(data.getTime()));
 			preparedStatement.setString(3, sport);
 			preparedStatement.setTime(4, Time.valueOf(time));
 
@@ -359,9 +349,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setNome(rs.getString("nome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setStruttura(rs.getString("struttura"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataCampo"));
-				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
@@ -379,5 +367,6 @@ public class ProductModelDM implements ProductModel {
 		}
 		return products;
 	}
+
 
 }

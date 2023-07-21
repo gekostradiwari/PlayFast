@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -38,9 +40,14 @@ public class RegistrazioneControl extends HttpServlet {
 			utente.setPassword(request.getParameter("password"));
 			utente.setNome(request.getParameter("nome"));
 			utente.setCognome(request.getParameter("cognome"));
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(java.sql.Date.valueOf(request.getParameter("dataNascita")));
-			utente.setDataNascita((GregorianCalendar) cal);
+			Date data = null;
+			try {
+				data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dataNascita"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			utente.setDataNascita(data);
 			
 			boolean flag = true;
 			try {

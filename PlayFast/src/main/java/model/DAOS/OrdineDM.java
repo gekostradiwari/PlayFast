@@ -58,7 +58,7 @@ public class OrdineDM implements Ordine{
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1,ordine.getStato());
-			preparedStatement.setDate(2,(java.sql.Date) ordine.getDataPrenotazione().getTime());
+			preparedStatement.setDate(2,new java.sql.Date(ordine.getDataPrenotazione().getTime()));
 			preparedStatement.setInt(3, ordine.getUtente());
 			preparedStatement.setString(4,ordine.getModPagamento());
 			
@@ -87,7 +87,7 @@ public class OrdineDM implements Ordine{
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 			preparedStatement.setString(1,ordine.getStato());
-			preparedStatement.setDate(2,(java.sql.Date) ordine.getDataPrenotazione().getTime());
+			preparedStatement.setDate(2,new java.sql.Date(ordine.getDataPrenotazione().getTime()));
 			preparedStatement.setInt(3,ordine.getUtente());
 			preparedStatement.setString(4,ordine.getModPagamento());		
 			
@@ -151,9 +151,7 @@ public class OrdineDM implements Ordine{
 			while (rs.next()) {
 				bean.setID(ID);
 				bean.setStato(rs.getString("stato"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataPrenotazione"));
-				bean.setDataPrenotazione((GregorianCalendar) cal);
+				bean.setDataPrenotazione(new java.util.Date(rs.getDate("dataPrenotazione").getTime()));
 				bean.setUtente(rs.getInt("utente"));
 				bean.setModPagamento(rs.getString("mod_pagamento"));
 			}
@@ -192,9 +190,7 @@ public class OrdineDM implements Ordine{
 				OrdineBean bean = new OrdineBean();
 				bean.setID(rs.getInt("ID"));
 				bean.setStato(rs.getString("stato"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataPrenotazione"));
-				bean.setDataPrenotazione((GregorianCalendar) cal);
+				bean.setDataPrenotazione(new java.util.Date(rs.getDate("dataPrenotazione").getTime()));
 				bean.setUtente(rs.getInt("utente"));
 				bean.setModPagamento(rs.getString("mod_pagamento"));
 				ordini.add(bean);
@@ -232,9 +228,7 @@ public class OrdineDM implements Ordine{
 				OrdineBean bean = new OrdineBean();
 				bean.setID(rs.getInt("ID"));
 				bean.setStato(rs.getString("stato"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataPrenotazione"));
-				bean.setDataPrenotazione((GregorianCalendar) cal);
+				bean.setDataPrenotazione(new java.util.Date(rs.getDate("dataPrenotazione").getTime()));
 				bean.setUtente(rs.getInt("utente"));
 				bean.setModPagamento(rs.getString("mod_pagamento"));
 				ordini.add(bean);
@@ -274,9 +268,7 @@ public class OrdineDM implements Ordine{
 				OrdineBean bean = new OrdineBean();
 				bean.setID(rs.getInt("ID"));
 				bean.setStato(rs.getString("stato"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataPrenotazione"));
-				bean.setDataPrenotazione((GregorianCalendar) cal);
+				bean.setDataPrenotazione(new java.util.Date(rs.getDate("dataPrenotazione").getTime()));
 				bean.setUtente(rs.getInt("utente"));
 				bean.setModPagamento(rs.getString("mod_pagamento"));
 				ordini.add(bean);
@@ -313,9 +305,7 @@ public class OrdineDM implements Ordine{
 				OrdineBean bean = new OrdineBean();
 				bean.setID(rs.getInt("ID"));
 				bean.setStato(rs.getString("stato"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataPrenotazione"));
-				bean.setDataPrenotazione((GregorianCalendar) cal);
+				bean.setDataPrenotazione(new java.util.Date(rs.getDate("dataPrenotazione").getTime()));
 				bean.setUtente(rs.getInt("utente"));
 				bean.setModPagamento(rs.getString("mod_pagamento"));
 				ordini.add(bean);

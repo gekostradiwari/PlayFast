@@ -1,20 +1,19 @@
 package model.beans;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 public class OrdineBean {
 	
 	private int ID;
 	private String stato;
-	private GregorianCalendar dataPrenotazione;
+	private Date dataPrenotazione;
 	private int utente;
 	private String modPagamento;
 	
 	public OrdineBean() {
 		ID = 0;
 		stato = "";
-		dataPrenotazione = new GregorianCalendar(0,0,0,0,0,0);
 		utente = 0;
 		modPagamento = "";
 	}
@@ -35,11 +34,11 @@ public class OrdineBean {
 		this.stato = stato;
 	}
 
-	public GregorianCalendar getDataPrenotazione() {
+	public Date getDataPrenotazione() {
 		return dataPrenotazione;
 	}
 
-	public void setDataPrenotazione(GregorianCalendar dataPrenotazione) {
+	public void setDataPrenotazione(Date dataPrenotazione) {
 		this.dataPrenotazione = dataPrenotazione;
 	}
 

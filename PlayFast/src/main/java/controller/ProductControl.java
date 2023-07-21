@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
@@ -87,21 +87,17 @@ public class ProductControl extends HttpServlet {
 			}	
 			if(action.equals("getCampiPerData")) {
 				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
-				java.util.Date data = null; 
-				try {
-				    data = new SimpleDateFormat("dd/MM/yyyy").parse("04/02/2002"); //request.getParameter("Data")
-				}
-				catch (ParseException e) {
-				    // Show error message to enduser about the wrong format and forward back to the JSP with the form.
-				    request.setAttribute("error", "Invalid format, please enter yyyy-MM-dd");
-				    request.getRequestDispatcher("search.jsp").forward(request, response);
-				    return;
-				}
 				String citta = request.getParameter("Citta");
+				Date data = null;
+				try {
+					data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("Data"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String sport = request.getParameter("Sport");
 				LocalTime ora = LocalTime.parse(request.getParameter("Ora"));
-				
-				
+
 				try {
 					prodotti = model.doRetriveByData(citta,data, sport, ora);
 				} catch (SQLException e) {

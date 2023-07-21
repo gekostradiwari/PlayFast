@@ -2,7 +2,6 @@ package model.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class UtenteBean implements Serializable {
 
@@ -13,7 +12,7 @@ public class UtenteBean implements Serializable {
 	private String password;
 	private String nome;
 	private String cognome;
-	private GregorianCalendar dataNascita;
+	private Date dataNascita;
 	
 	public UtenteBean() {
 		id = 0;
@@ -21,7 +20,6 @@ public class UtenteBean implements Serializable {
 		password = "";
 		nome = "";
 		cognome = "";
-		dataNascita = new GregorianCalendar(0,0,0,0,0,0);
 	}
 
 	public int getId() {
@@ -64,11 +62,11 @@ public class UtenteBean implements Serializable {
 		this.cognome = cognome;
 	}
 
-	public GregorianCalendar getDataNascita() {
+	public Date getDataNascita() {
 		return dataNascita;
 	}
 
-	public void setDataNascita(GregorianCalendar dataNascita) {
+	public void setDataNascita(Date dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 

@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class UtenteDM implements Utente{
 
@@ -31,7 +30,7 @@ public class UtenteDM implements Utente{
 			preparedStatement.setString(2, utente.getPassword());
 			preparedStatement.setString(3, utente.getNome());
 			preparedStatement.setString(4, utente.getCognome());
-			preparedStatement.setDate(5,(Date) utente.getDataNascita().getTime());
+			preparedStatement.setDate(5,new java.sql.Date(utente.getDataNascita().getTime()));
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -60,7 +59,7 @@ public class UtenteDM implements Utente{
 			preparedStatement.setString(1, utente.getPassword());
 			preparedStatement.setString(2, utente.getNome());
 			preparedStatement.setString(3, utente.getCognome());
-			preparedStatement.setDate(4,(Date) utente.getDataNascita().getTime());
+			preparedStatement.setDate(4, new java.sql.Date(utente.getDataNascita().getTime()));
 			preparedStatement.setString(5, utente.getMail());
 			
 			preparedStatement.executeUpdate();
@@ -126,9 +125,7 @@ public class UtenteDM implements Utente{
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataNascita"));
-				bean.setDataNascita((GregorianCalendar) cal);
+				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
 			}
 
 		} finally {
@@ -163,9 +160,7 @@ public class UtenteDM implements Utente{
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataNascita"));
-				bean.setDataNascita((GregorianCalendar) cal);
+				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
 			}
 
 		} finally {
@@ -204,9 +199,7 @@ public class UtenteDM implements Utente{
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataNascita"));
-				bean.setDataNascita((GregorianCalendar) cal);
+				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
 				utenti.add(bean);
 			}
 
@@ -242,9 +235,7 @@ public class UtenteDM implements Utente{
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
-				Calendar cal = new GregorianCalendar();
-				cal.setTime(rs.getDate("dataNascita"));
-				bean.setDataNascita((GregorianCalendar) cal);
+				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
 				utenti.add(bean);
 			}
 
