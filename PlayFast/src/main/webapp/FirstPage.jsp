@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    %>
+    
 <!doctype html>
 <html>
 <head>
@@ -14,7 +16,7 @@
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-	
+	<jsp:include page="ProductControl"><jsp:include>
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
@@ -30,7 +32,7 @@
 			<div class="container">
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 					<div class="col">
-						<div class="card shadow-sm">
+						<!-- <div class="card shadow-sm">
 							<svg class="bd-placeholder-img card-img-top" width="100%"
 								height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 								aria-label="Placeholder: Thumbnail"

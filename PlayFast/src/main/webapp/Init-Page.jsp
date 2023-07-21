@@ -22,7 +22,7 @@
 						<div class="form-header">
 							<h1>PRENOTA IL TUO SPORT PREFERITO</h1>
 						</div>
-						<form>
+						<form method="GET" action="/PlayFast/ProductControl">
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="Citta'">
 								<span class="form-label">Citta'</span>
@@ -81,9 +81,11 @@
 									</div>
 								</div> 
 							</div>
-							<div class="form-btn">
-								<button class="submit-btn">CERCA</button>
+							
+ 							<div class="form-btn">
+								<button class="submit-btn" name="action" value="ViewProdotti">CERCA</button>
 							</div>
+						
 						</form>
 					</div>
 				</div>
