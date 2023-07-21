@@ -21,34 +21,24 @@
 								height="1em">
                 <use href="#moon-stars-fill"></use>
               </svg>
-							Login
+							 Sign-up
 							<svg class="bi ms-auto d-none" width="1em" height="1em">
                 <use href="#check2"></use>
               </svg>
 						</button>
 						<button type="button"
 							class="dropdown-item d-flex align-items-center"
-							data-bs-theme-value="dark" aria-pressed="false">
+							data-bs-theme-value="dark1" aria-pressed="false">
 							<svg class="bi me-2 opacity-50 theme-icon" width="1em"
 								height="1em">
                 <use href="#moon-stars-fill"></use>
               </svg>
-							Sing up
+							Login
 							<svg class="bi ms-auto d-none" width="1em" height="1em">
                 <use href="#check2"></use>
               </svg>
 						</button>
-						<!-- <button type="button"
-							class="dropdown-item d-flex align-items-center"
-							data-bs-theme-value="dark" aria-pressed="false">
-							<svg class="bi me-2 opacity-50 theme-icon" width="1em"
-								height="1em">
-                <use href="#moon-stars-fill"></use>
-              </svg>
-							Register structure
-							<svg class="bi ms-auto d-none" width="1em" height="1em">
-                <use href="#check2"></use>
-              </svg> -->
+						
 					</div>
 				</div>
 			</div>
@@ -67,4 +57,7 @@
 				</button>
 			</div>
 		</div>
+		
+		<script src="./SCRIPT/Header.js"></script>
+		
 	</header>
