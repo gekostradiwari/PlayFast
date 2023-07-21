@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -327,6 +329,54 @@ public class ProductModelDM implements ProductModel {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public ArrayList<ProductBean> doRetriveByData(String citta, Date data, String sport, LocalTime time) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + "," +"ora"
+						 + " WHERE citta = ? AND dataCampo = ? AND tipo = ? AND ora.id_campo = product.id AND ora.disponibilita = 1 AND ora.ora = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, citta);
+			preparedStatement.setDate(2, data);
+			preparedStatement.setString(3, sport);
+			preparedStatement.setTime(4, Time.valueOf(time));
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setId(rs.getInt("id"));
+				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setNome(rs.getString("nome"));
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setStruttura(rs.getString("struttura"));
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(rs.getDate("dataCampo"));
+				bean.setDataCampo((GregorianCalendar) cal);
+				bean.setTipo(rs.getString("tipo"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setUrlImmagine(rs.getString("url_immagine"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return products;
 	}
 
 }
