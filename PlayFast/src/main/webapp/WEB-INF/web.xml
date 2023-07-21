@@ -14,7 +14,7 @@
 	</resource-ref>
 
 	<welcome-file-list>
-		<welcome-file>init.jsp</welcome-file>
+		<welcome-file>Init-Page.jsp</welcome-file>
 	</welcome-file-list>
 
     <error-page>
