@@ -83,7 +83,7 @@
 							</div>
 							
  							<div class="form-btn">
-								<button class="submit-btn" name="action" value="ViewProdotti">CERCA</button>
+								<button class="submit-btn" name="action" value="getCampiPerData">CERCA</button>
 							</div>
 						
 						</form>

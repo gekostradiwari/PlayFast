@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
+    import = "java.util.*"
+    import = "model.beans.ProductBean"
+    
     %>
     
 <!doctype html>
@@ -16,7 +19,6 @@
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-	<jsp:include page="ProductControl"><jsp:include>
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
@@ -26,6 +28,43 @@
 						vicino a te.</p>
 				</div>
 			</div>
+		</section>
+		<section id=ListCampi>
+			<h1 id=campiListTitle>La tua lista campi</h1>
+		<% ArrayList<ProductBean> campi = (ArrayList<ProductBean>)request.getAttribute("prodotti");
+			  
+				 if(campi.isEmpty()){ %>
+			 	<p id=emptyGameListTitle>Non ci sono campi disponibili secondo queste richieste.</p>
+			 <%}else{ %>
+			 
+			 	<section id=gameSection>
+			 	<%for (ProductBean campo:campi){ %>
+			 		<div class="card shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%"
+								height="225" xmlns="http://www.w3.org/2000/svg" role="img"
+								aria-label="Placeholder: Thumbnail"
+								preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c" />
+                <image href="<%= campo.getUrlImmagine() %>" width="100%" height="100%"
+									preserveAspectRatio="xMidYMid slice" />
+              </svg>
+							<div class="card-body">
+							<h1><%=campo.getNome()%></h1>
+							<p class="card-text"><%=campo.getIndirizzo()%></p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<button type="button" class="btn btn-sm btn-outline-secondary">Add
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			 		
+			 	<%} %>
+			 	</section>
+			 <%} %>
 		</section>
 
 		<div class="album py-5 bg-body-tertiary">
@@ -44,9 +83,9 @@
               </svg>
 							<div class="card-body">
 								<p class="card-text">Il centro sportivo Ludi nasce nel
-									Giugno del 1997 da un’idea di Ernesto che aveva il sogno di
+									Giugno del 1997 da unidea di Ernesto che aveva il sogno di
 									creare un centro di aggregazione, divertimento e
-									socializzazione per la comunità Terzignese e non solo.</p>
+									socializzazione per la comunit� Terzignese e non solo.</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">Add

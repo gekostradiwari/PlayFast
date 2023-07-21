@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -332,7 +333,7 @@ public class ProductModelDM implements ProductModel {
 	}
 
 	@Override
-	public ArrayList<ProductBean> doRetriveByData(String citta, Date data, String sport, LocalTime time) throws SQLException {
+	public ArrayList<ProductBean> doRetriveByData(String citta, java.util.Date data, String sport, LocalTime time) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -345,7 +346,7 @@ public class ProductModelDM implements ProductModel {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, citta);
-			preparedStatement.setDate(2, data);
+			preparedStatement.setString(2, data.toString());
 			preparedStatement.setString(3, sport);
 			preparedStatement.setTime(4, Time.valueOf(time));
 

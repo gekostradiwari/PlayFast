@@ -13,7 +13,7 @@ public class ProductBean implements Serializable {
 	private String nome;
 	private String telefono;
 	private String struttura;
-	private GregorianCalendar dataCampo;
+	private Date dataCampo;
 	private String tipo;
 	private String email;
 	private double prezzo;
@@ -27,7 +27,6 @@ public class ProductBean implements Serializable {
 		nome = "";
 		telefono = "";
 		struttura = "";
-		dataCampo = new GregorianCalendar(0,0,0,0,0,0);
 		tipo = "";
 		email = "";
 		prezzo = 0.0;
@@ -85,12 +84,12 @@ public class ProductBean implements Serializable {
 	}
 
 
-	public GregorianCalendar getDataCampo() {
+	public Date getDataCampo() {
 		return dataCampo;
 	}
 
 
-	public void setDataCampo(GregorianCalendar dataCampo) {
+	public void setDataCampo(Date dataCampo) {
 		this.dataCampo = dataCampo;
 	}
 

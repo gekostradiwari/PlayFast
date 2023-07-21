@@ -2,6 +2,7 @@ package model.DAOS;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -22,5 +23,5 @@ public interface ProductModel {
 	
 	public ArrayList<ProductBean> doRetrieveByAdmin(int id) throws SQLException;
 	
-	public ArrayList<ProductBean> doRetriveByData(String citta,Date data,String sport, LocalTime time) throws SQLException;
+	public ArrayList<ProductBean> doRetriveByData(String citta,java.util.Date data,String sport, LocalTime time) throws SQLException;
 }
