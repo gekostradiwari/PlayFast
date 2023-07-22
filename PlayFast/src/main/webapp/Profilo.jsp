@@ -43,8 +43,8 @@
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100 rounded-0 border-0"
-      type="text" placeholder="" aria-label="">
+    <!-- <input class="form-control form-control-dark w-100 rounded-0 border-0"
+      type="text" placeholder="" aria-label=""> -->
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <a class="nav-link px-3" href="#">Log-out</a>

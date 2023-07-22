@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"
     import = "java.util.*"
     import = "model.beans.ProductBean"
+    import = "model.beans.Carrello"
     
     %>
     
@@ -33,12 +34,13 @@
 			<h1 id=campiListTitle>La tua lista campi</h1>
 		<% ArrayList<ProductBean> campi = (ArrayList<ProductBean>)request.getAttribute("prodotti");
 			  
-				 if(campi.isEmpty()){ %>
-			 	<p id=emptyGameListTitle>Non ci sono campi disponibili secondo queste richieste.</p>
+				 if( campi.isEmpty()){ %>
+			 	<p id=emptyCampiListTitle>Non ci sono campi disponibili secondo queste richieste.</p>
 			 <%}else{ %>
 			 
-			 	<section id=gameSection>
+			 	<section id=campiSection>
 			 	<%for (ProductBean campo:campi){ %>
+			 	<form method="GET" action="/PlayFast/ProductControl">
 			 		<div class="card shadow-sm">
 							<svg class="bd-placeholder-img card-img-top" width="100%"
 								height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -51,17 +53,17 @@
               </svg>
 							<div class="card-body">
 							<h1><%=campo.getNome()%></h1>
+							<div name="codice" value="<%=campo.getId()%>">
 							<p class="card-text"><%=campo.getIndirizzo()%></p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary">Add
+										<button type="button" class="btn btn-sm btn-outline-secondary" name="action" value="AddToCarrello">Add
 											Cart</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-			 		
+						</div>	
+						</form>		 		
 			 	<%} %>
 			 	</section>
 			 <%} %>
@@ -96,6 +98,7 @@
 						</div>
 					</div>
 					<!-- More card elements -->
+					</div>
 				</div>
 			</div>
 		</div>
