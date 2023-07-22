@@ -184,9 +184,9 @@ public class ProductModelDM implements ProductModel {
 				bean.setStruttura(rs.getString("struttura"));
 				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
-				bean.setEmail(rs.getString("mail"));
+				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setUrlImmagine(rs.getString("urlImmagine"));
+				bean.setUrlImmagine(rs.getString("url_immagine"));
 				products.add(bean);
 			}
 
@@ -329,7 +329,7 @@ public class ProductModelDM implements ProductModel {
 
 		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
-		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + "," +"ora"
+		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + ","+"ora"
 						 + " WHERE citta = ? AND dataCampo = ? AND tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora = ?";
 
 		try {
