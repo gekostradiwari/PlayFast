@@ -34,7 +34,7 @@
 			<h1 id=campiListTitle>La tua lista campi</h1>
 		<% ArrayList<ProductBean> campi = (ArrayList<ProductBean>)request.getAttribute("prodotti");
 			  
-				 if( campi.isEmpty()){ %>
+				 if( campi == null || campi.isEmpty()){ %>
 			 	<p id=emptyCampiListTitle>Non ci sono campi disponibili secondo queste richieste.</p>
 			 <%}else{ %>
 			 

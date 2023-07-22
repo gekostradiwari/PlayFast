@@ -14,6 +14,34 @@ import java.util.Calendar;
 public class UtenteDM implements Utente{
 
 	private static final String TABLE_NAME = "utente";
+	public synchronized int getIdCodice() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String selectSQL = "SELECT MAX(ID) AS MAXID FROM " + UtenteDM.TABLE_NAME;
+		int idMax = 0;
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+	
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				idMax = rs.getInt("MAXID");
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return idMax+1;
+		
+	}
 	
 	@Override
 	public synchronized void doSave(UtenteBean utente) throws SQLException {
@@ -109,7 +137,7 @@ public class UtenteDM implements Utente{
 
 		UtenteBean bean = null;
 
-		String selectSQL = "SELECT * FROM " + UtenteDM.TABLE_NAME + " WHERE email = ? and password = ?";
+		String selectSQL = "SELECT * FROM " + UtenteDM.TABLE_NAME + " WHERE mail = ? and password = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -121,7 +149,7 @@ public class UtenteDM implements Utente{
 
 			while (rs.next()) {
 				bean = new UtenteBean();
-				bean.setMail(rs.getString("email"));
+				bean.setMail(rs.getString("mail"));
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));

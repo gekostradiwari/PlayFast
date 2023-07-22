@@ -141,7 +141,7 @@ public class adminDM implements admin{
 
 		AdminBean bean = null;
 
-		String selectSQL = "SELECT * FROM " + adminDM.TABLE_NAME + " WHERE email = ? and password = ?";
+		String selectSQL = "SELECT * FROM " + adminDM.TABLE_NAME + " WHERE mail = ? and password = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -154,7 +154,7 @@ public class adminDM implements admin{
 			while (rs.next()) {
 				bean = new AdminBean();
 				bean.setId(rs.getInt("id"));
-				bean.setEmail(rs.getString("email"));
+				bean.setEmail(rs.getString("mail"));
 				bean.setPassword(rs.getString("password"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setNome(rs.getString("nome"));

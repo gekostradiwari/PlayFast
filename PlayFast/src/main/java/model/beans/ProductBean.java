@@ -9,6 +9,7 @@ public class ProductBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	private int id_admin;
 	private String indirizzo;
 	private String nome;
 	private String telefono;
@@ -17,12 +18,14 @@ public class ProductBean implements Serializable {
 	private String tipo;
 	private String email;
 	private double prezzo;
+	private String citta;
 	private String urlImmagine;
 	
 	
 
 	public ProductBean() {
 		id = 0;
+		id_admin = 0;
 		indirizzo = "";
 		nome = "";
 		telefono = "";
@@ -31,6 +34,7 @@ public class ProductBean implements Serializable {
 		email = "";
 		prezzo = 0.0;
 		urlImmagine = "";
+		citta = "";
 	}
 
 
@@ -131,6 +135,27 @@ public class ProductBean implements Serializable {
 
 	public void setUrlImmagine(String urlImmagine) {
 		this.urlImmagine = urlImmagine;
+	}
+	
+
+
+	public int getId_admin() {
+		return id_admin;
+	}
+
+
+	public void setId_admin(int id_admin) {
+		this.id_admin = id_admin;
+	}
+
+
+	public String getCitta() {
+		return citta;
+	}
+
+
+	public void setCitta(String citta) {
+		this.citta = citta;
 	}
 
 

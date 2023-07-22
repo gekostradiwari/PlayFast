@@ -89,17 +89,28 @@ public class ProductControl extends HttpServlet {
 				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
 				String citta = request.getParameter("Citta");
 				Date data = null;
+				SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 				try {
-					data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("Data"));
+					data = inputFormat.parse(request.getParameter("Data"));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String formattedDate = outputFormat.format(data);
+				Date finalDate;
+		        try {
+		            finalDate = outputFormat.parse(formattedDate);
+		        } catch (ParseException e) {
+		            System.out.println("Errore nel parsing della data finale.");
+		            return;
+		        }
 				String sport = request.getParameter("Sport");
 				LocalTime ora = LocalTime.parse(request.getParameter("Ora"));
+				
 
 				try {
-					prodotti = model.doRetriveByData(citta,data, sport, ora);
+					prodotti = model.doRetriveByData(citta,finalDate, sport, ora);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

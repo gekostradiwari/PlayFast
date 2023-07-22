@@ -15,6 +15,34 @@ import java.util.Date;
 public class ProductModelDM implements ProductModel {
 
 	private static final String TABLE_NAME = "product";
+	public synchronized int getIdCodice() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String selectSQL = "SELECT MAX(ID) AS MAXID FROM " + ProductModelDM.TABLE_NAME;
+		int idMax = 0;
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+	
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				idMax = rs.getInt("MAXID");
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return idMax+1;
+		
+	}
 
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
@@ -23,7 +51,7 @@ public class ProductModelDM implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDM.TABLE_NAME
-				+ " (indirizzo, nome, telefono, struttura, dataCampo,tipo,email,prezzo, url_immagine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (indirizzo, nome, telefono, struttura, dataCampo,tipo,mail,prezzo, urlImmagine, id_admin,citta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -37,6 +65,8 @@ public class ProductModelDM implements ProductModel {
 			preparedStatement.setString(7, product.getEmail());
 			preparedStatement.setDouble(8, product.getPrezzo());
 			preparedStatement.setString(9, product.getUrlImmagine());
+			preparedStatement.setInt(10, product.getId_admin());
+			preparedStatement.setString(11, product.getCitta());
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -114,6 +144,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setId_admin(rs.getInt("id_admin"));
 				
 			}
 
@@ -187,6 +218,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setId_admin(rs.getInt("id_admin"));
 				products.add(bean);
 			}
 
@@ -230,6 +262,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setId_admin(rs.getInt("id_admin"));
 				products.add(bean);
 			}
 
@@ -303,6 +336,7 @@ public class ProductModelDM implements ProductModel {
 				bean.setEmail(rs.getString("email"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setId_admin(rs.getInt("id_admin"));
 				result.add(bean);
 				
 			}
@@ -330,7 +364,8 @@ public class ProductModelDM implements ProductModel {
 		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
 		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + ","+"ora"
-						 + " WHERE citta = ? AND dataCampo = ? AND tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora = ?";
+						 + " WHERE product.citta = ? AND product.dataCampo = ? AND product.tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora = ?";
+	//
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -351,9 +386,11 @@ public class ProductModelDM implements ProductModel {
 				bean.setStruttura(rs.getString("struttura"));
 				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
-				bean.setEmail(rs.getString("email"));
+				bean.setEmail(rs.getString("mail"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setUrlImmagine(rs.getString("urlImmagine"));
+				bean.setId_admin(rs.getInt("id_admin"));
+				bean.setCitta(rs.getString("citta"));
 				products.add(bean);
 			}
 

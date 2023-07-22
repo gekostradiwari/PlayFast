@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +26,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import utility.FileName;
+
 import database.DriverManagerConnectionPool;
 import model.DAOS.ComposizioneDM;
 import model.DAOS.FeedbackDM;
@@ -223,36 +229,13 @@ public class AdminControl extends HttpServlet {
 			response.sendRedirect("pages/operazione.jsp");
 		}
 		
-		if(action.equals("aggiungiProdotto")) {
-			ProductBean product = new ProductBean();
-			product.setIndirizzo(request.getParameter("Indirizzo"));
-			product.setNome(request.getParameter("Nome"));
-			product.setTelefono(request.getParameter("Telefono"));
-			product.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
-			product.setStruttura(request.getParameter("Struttura"));			
-			Date data = null;
-			try {
-				data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dataCampo"));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			product.setDataCampo(data);
-			product.setTipo(request.getParameter("Tipo"));
-			product.setEmail(request.getParameter("Email"));
-			product.setUrlImmagine("fotoProdotti/"+request.getParameter("urlImmagine"));
-			
-			ProductModelDM model = new ProductModelDM();
-			try {
-				model.doSave(product);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			request.setAttribute("operazione", "L'aggiunta del prodotto al catalogo � avvenuta con successo");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
-			dispatcher.forward(request, response);
-		}
+		
+		
+		
+		
+		
+		
+		
 		
 		if(action.equals("modificaProdotto")) {
 			ProductBean product = new ProductBean();
@@ -271,7 +254,7 @@ public class AdminControl extends HttpServlet {
 			product.setDataCampo(data);
 			product.setTipo(request.getParameter("Tipo"));
 			product.setEmail(request.getParameter("Email"));
-			product.setUrlImmagine("fotoProdotti/"+request.getParameter("urlImmagine"));
+			product.setUrlImmagine("ggggggg"); // fotoProdotti/"+request.getParameter("urlImmagine
 			
 			ProductModelDM model = new ProductModelDM();
 			try {
@@ -300,7 +283,87 @@ public class AdminControl extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		UtenteBean utente = (UtenteBean) session.getAttribute("Utente");
+		AdminBean admin = (AdminBean) session.getAttribute("Admin");
+		if(utente == null && admin == null) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(utente != null && admin == null) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
+		}
+		String action = request.getParameter("action");
+		if(action.equals("aggiungiProdotto")) {
+			String uploadPath = "/IMG";
+			
+			String filePath ="";
+			System.out.println(request.getParameter("struttura"));
+			 try {
+		            // Ottieni il Part corrispondente all'immagine caricata
+		            Part filePart = request.getPart("foto");
+		            String fileName = FileName.getFileName(filePart);
+
+		            // Crea il percorso completo in cui salvare l'immagine
+		             filePath = uploadPath + File.separator + fileName;
+
+		            // Salva l'immagine sul server
+		            InputStream inputStream = filePart.getInputStream();
+		            Files.copy(inputStream, new File(filePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+		            response.getWriter().println("Upload dell'immagine avvenuto con successo!");
+		        } catch (Exception e) {
+		            response.getWriter().println("Si è verificato un errore durante l'upload dell'immagine.");
+		            e.printStackTrace();
+		        }
+			ProductBean product = new ProductBean();
+			product.setIndirizzo(request.getParameter("indirizzo"));
+			product.setNome(request.getParameter("nome_campo"));
+			product.setTelefono(request.getParameter("telefono"));
+			product.setPrezzo(Double.parseDouble(request.getParameter("costo")));
+			product.setStruttura(request.getParameter("struttura"));
+			product.setCitta(request.getParameter("citta"));
+			Date data = null;
+			SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+			try {
+				data = inputFormat.parse(request.getParameter("Data"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = outputFormat.format(data);
+			Date finalDate;
+	        try {
+	            finalDate = outputFormat.parse(formattedDate);
+	        } catch (ParseException e) {
+	            System.out.println("Errore nel parsing della data finale.");
+	            return;
+	        }
+			product.setDataCampo(finalDate);
+			product.setTipo(request.getParameter("tipologia"));
+			product.setEmail(request.getParameter("email"));
+			product.setUrlImmagine(filePath); // fotoProdotti/\"+request.getParameter(\"foto\"
+			product.setId_admin(admin.getId());
+			ProductModelDM model = new ProductModelDM();
+			try {
+				product.setId(model.getIdCodice());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				model.doSave(product);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("operazione", "L'aggiunta del prodotto al catalogo � avvenuta con successo");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
+	
 
 }

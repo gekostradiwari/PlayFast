@@ -18,7 +18,7 @@ import model.DAOS.adminDM;
 import model.beans.UtenteBean;
 import model.beans.AdminBean;
 
-@WebServlet("/Login")
+@WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -44,6 +44,8 @@ public class LoginControl extends HttpServlet {
 				c.setPath("/");
 				response.addCookie(c);	
 				response.getWriter().write("1");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
+				dispatcher.forward(request, response);
 			}
 			else if(utente != null && admin == null){
 				HttpSession session = request.getSession(true);
