@@ -72,8 +72,10 @@ public class ProductControl extends HttpServlet {
 			}
 			
 			if(action.equals("AddToCarrello")) {
+				System.out.println("Ciao");
 				try {
 					carrello.addProduct(Integer.valueOf(request.getParameter("codice")));
+					System.out.println(Integer.valueOf(request.getParameter("codice")));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

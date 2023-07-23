@@ -53,11 +53,13 @@
               </svg>
 							<div class="card-body">
 							<h1><%=campo.getNome()%></h1>
-							<div name="codice" value="<%=campo.getId()%>">
+							
 							<p class="card-text"><%=campo.getIndirizzo()%></p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary" name="action" value="AddToCarrello&codice=<%=campo.getId()%>">Add
+									<input type="hidden" name="codice" value="<%=campo.getId() %>">
+										<input type="hidden" name="action" value="AddToCarrello">
+										<button type="button" class="btn btn-sm btn-outline-secondary" >Add
 											Cart</button>
 									</div>
 								</div>

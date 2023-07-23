@@ -35,8 +35,9 @@
 
   <header
     class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">PLAY
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="Init-Page.jsp">PLAY
       FAST</a>
+
     <button class="navbar-toggler position-absolute d-md-none collapsed"
       type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
       aria-controls="sidebarMenu" aria-expanded="false"
@@ -63,11 +64,11 @@
               aria-current="page" href="#"> <span data-feather="home"
                 class="align-text-bottom"></span> Home
             </a></li>
-            <li class="nav-item"><a class="nav-link" href="#"> <span
+            <li class="nav-item"><a class="nav-link" href="Profilo.jsp"> <span
                 data-feather="file" class="align-text-bottom"></span>
                 Prenotazioni
             </a></li>
-            <li class="nav-item"><a class="nav-link" href="#"> <span
+            <li class="nav-item"><a class="nav-link" href="Catalogo.jsp"> <span
                 data-feather="shopping-cart" class="align-text-bottom"></span>
                 Campi
             </a></li>
@@ -99,11 +100,11 @@
               </a>
             </h6>
             <ul class="nav flex-column mb-2">
-              <li class="nav-item"><a class="nav-link" href="#"> <span
+             <!-- <li class="nav-item"><a class="nav-link" href="#"> <span
                   data-feather="file-text" class="align-text-bottom"></span>
                   Impostazioni
-              </a></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <span
+              </a></li> --> 
+              <li class="nav-item"><a class="nav-link" href="Inserisci-Campo.jsp"> <span
                   data-feather="file-text" class="align-text-bottom"></span>
                   Inserisci campo
               </a></li>
