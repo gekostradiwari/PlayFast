@@ -57,6 +57,8 @@ public class LoginControl extends HttpServlet {
 				c.setPath("/");
 				response.addCookie(c);
 				response.getWriter().write("1");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo-Utente.jsp");
+				dispatcher.forward(request, response);
 			}
 			else {
 				response.getWriter().write("0");

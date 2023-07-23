@@ -108,6 +108,12 @@ public class UtenteControl extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/datiAnagrafici.jsp");
 				dispatcher.forward(request, response);
 			}
+			
+			if(action.equals("settingUtente")) {
+				UtenteDM utenteUpdate;
+				UtenteBean utenteBean;
+				
+			}
 		}
 	}
 

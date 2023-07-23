@@ -41,7 +41,7 @@
 		<span class="form-label">DATA</span>
 		
 		<label for="foto">Foto del Campo:</label> 
-		<input type="file" id="foto" name="foto" accept="image/*">
+		<input type="file" id="foto" name="fotoImmagineCampo" accept="image/*">
 		<button type="submit" >Invia Dati</button>
 	</form>
 

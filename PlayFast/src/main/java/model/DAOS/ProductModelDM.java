@@ -51,7 +51,7 @@ public class ProductModelDM implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDM.TABLE_NAME
-				+ " (indirizzo, nome, telefono, struttura, dataCampo,tipo,mail,prezzo, urlImmagine, id_admin,citta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+				+ " (indirizzo, nome, telefono, struttura, dataCampo,tipo,mail,prezzo, urlImmagine, id_admin,citta,id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -67,6 +67,7 @@ public class ProductModelDM implements ProductModel {
 			preparedStatement.setString(9, product.getUrlImmagine());
 			preparedStatement.setInt(10, product.getId_admin());
 			preparedStatement.setString(11, product.getCitta());
+			preparedStatement.setInt(12, product.getId());
 			preparedStatement.executeUpdate();
 
 			connection.commit();

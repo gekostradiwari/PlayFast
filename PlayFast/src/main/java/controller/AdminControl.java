@@ -20,6 +20,7 @@ import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +46,9 @@ import model.beans.UtenteBean;
 import model.beans.*;
 
 @WebServlet("/AdminControl")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // Dimensione soglia di 2MB
+maxFileSize = 1024 * 1024 * 10,      // Dimensione massima del file di 10MB
+maxRequestSize = 1024 * 1024 * 50)  // Dimensione massima della richiesta di 50MB
 public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -229,6 +233,74 @@ public class AdminControl extends HttpServlet {
 			response.sendRedirect("pages/operazione.jsp");
 		}
 		
+		/*if(action.equals("aggiungiProdotto")) {
+			String uploadPath = "/IMG";
+			
+			String filePath ="";
+			 try {
+		            // Ottieni il Part corrispondente all'immagine caricata
+		            Part filePart = request.getPart("fotoImmagineCampo");
+		            String fileName = FileName.getFileName(filePart);
+
+		            // Crea il percorso completo in cui salvare l'immagine
+		             filePath = uploadPath + File.separator + fileName;
+
+		            // Salva l'immagine sul server
+		            InputStream inputStream = filePart.getInputStream();
+		            Files.copy(inputStream, new File(filePath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+		            response.getWriter().println("Upload dell'immagine avvenuto con successo!");
+		        } catch (Exception e) {
+		            response.getWriter().println("Si è verificato un errore durante l'upload dell'immagine.");
+		            e.printStackTrace();
+		        }
+			ProductBean product = new ProductBean();
+			product.setIndirizzo(request.getParameter("indirizzo"));
+			product.setNome(request.getParameter("nome_campo"));
+			product.setTelefono(request.getParameter("telefono"));
+			product.setPrezzo(Double.valueOf(request.getParameter("costo")));
+			product.setStruttura(request.getParameter("struttura"));
+			product.setCitta(request.getParameter("citta"));
+			Date data = null;
+			SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+			try {
+				data = inputFormat.parse(request.getParameter("Data"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = outputFormat.format(data);
+			Date finalDate;
+	        try {
+	            finalDate = outputFormat.parse(formattedDate);
+	        } catch (ParseException e) {
+	            System.out.println("Errore nel parsing della data finale.");
+	            return;
+	        }
+			product.setDataCampo(finalDate);
+			product.setTipo(request.getParameter("tipologia"));
+			product.setEmail(request.getParameter("email"));
+			product.setUrlImmagine(filePath); // fotoProdotti/\"+request.getParameter(\"foto\"
+			product.setId_admin(admin.getId()); 
+			ProductModelDM model = new ProductModelDM();
+			try {
+				product.setId(model.getIdCodice());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				model.doSave(product);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("operazione", "L'aggiunta del prodotto al catalogo � avvenuta con successo");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
+			dispatcher.forward(request, response);
+		}*/ 
+		
 		
 		
 		
@@ -295,14 +367,14 @@ public class AdminControl extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		String action = request.getParameter("action");
+		System.out.println(action);
 		if(action.equals("aggiungiProdotto")) {
 			String uploadPath = "/IMG";
 			
 			String filePath ="";
-			System.out.println(request.getParameter("struttura"));
 			 try {
 		            // Ottieni il Part corrispondente all'immagine caricata
-		            Part filePart = request.getPart("foto");
+		            Part filePart = request.getPart("fotoImmagineCampo");
 		            String fileName = FileName.getFileName(filePart);
 
 		            // Crea il percorso completo in cui salvare l'immagine
@@ -321,7 +393,7 @@ public class AdminControl extends HttpServlet {
 			product.setIndirizzo(request.getParameter("indirizzo"));
 			product.setNome(request.getParameter("nome_campo"));
 			product.setTelefono(request.getParameter("telefono"));
-			product.setPrezzo(Double.parseDouble(request.getParameter("costo")));
+			product.setPrezzo(Double.valueOf(request.getParameter("costo")));
 			product.setStruttura(request.getParameter("struttura"));
 			product.setCitta(request.getParameter("citta"));
 			Date data = null;
@@ -345,7 +417,7 @@ public class AdminControl extends HttpServlet {
 			product.setTipo(request.getParameter("tipologia"));
 			product.setEmail(request.getParameter("email"));
 			product.setUrlImmagine(filePath); // fotoProdotti/\"+request.getParameter(\"foto\"
-			product.setId_admin(admin.getId());
+			product.setId_admin(admin.getId()); 
 			ProductModelDM model = new ProductModelDM();
 			try {
 				product.setId(model.getIdCodice());
@@ -363,6 +435,7 @@ public class AdminControl extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
 			dispatcher.forward(request, response);
 		}
+		
 	}
 	
 

@@ -78,8 +78,8 @@ public class UtenteDM implements Utente{
 		PreparedStatement preparedStatement = null;
 		
 		String updateSQL = "UPDATE " + UtenteDM.TABLE_NAME
-						 + " SET password= ?,nome= ?,cognome= ?,dataNascita= ?"
-						 + " WHERE email = ?";
+						 + " SET password= ?,nome= ?,cognome= ?,dataNascita= ?, mail = ?"
+						 + " WHERE id = ?";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -89,6 +89,7 @@ public class UtenteDM implements Utente{
 			preparedStatement.setString(3, utente.getCognome());
 			preparedStatement.setDate(4, new java.sql.Date(utente.getDataNascita().getTime()));
 			preparedStatement.setString(5, utente.getMail());
+			preparedStatement.setInt(6, utente.getId());
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
