@@ -19,7 +19,7 @@
 </head>
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="Header+cart.jsp"></jsp:include>
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
@@ -57,13 +57,13 @@
 							<p class="card-text"><%=campo.getIndirizzo()%></p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary" name="action" value="AddToCarrello">Add
+										<button type="button" class="btn btn-sm btn-outline-secondary" name="action" value="AddToCarrello&codice=<%=campo.getId()%>">Add
 											Cart</button>
 									</div>
 								</div>
 							</div>
 						</div>	
-						</form>		 		
+						</form>			 		
 			 	<%} %>
 			 	</section>
 			 <%} %>

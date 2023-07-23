@@ -11,15 +11,25 @@
 
 <body>
 	<h1>Gestione Profilo Utente</h1>
-	<form id="profileForm" method="post" action="salva_dati.php">
-		<label for="nome">Nome:</label> <input type="text" id="nome"
-			name="nome" required> <label for="cognome">Cognome:</label> <input
-			type="text" id="cognome" name="cognome" required> <label
-			for="email">Email:</label> <input type="email" id="email"
-			name="email" required> <label for="email">Password:</label> <input
-			type="password" id="password" name="password" required>
+	
+	<form id="profileForm" method="GET" action="/PlayFast/UtenteControl">
+	
+	<label for="nome">Nome:</label> 
+		<input type="text" id="nome" name="nome" required> 
+			
+			<label for="cognome">Cognome:</label> 
+			<input type="text" id="cognome" name="cognome" required>
+			
+			<span class="form-label">DATA</span>
+			<input class="form-control" type="date" name="Data" required>
+						
+			 <label	for="email">Email:</label> 
+			<input type="email" id="email" name="email" required>
+			
+			 <label for="email">Password:</label>
+			  <input type="password" id="password" name="password" required>
 
-		<button type="submit">Salva</button>
+		<button type="submit" name="action" value="settingUtente">Salva</button>
 	</form>
 
 	<script src="./SCRIPT/setting-Utente.js"></script>

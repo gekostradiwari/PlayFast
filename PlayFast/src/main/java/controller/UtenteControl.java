@@ -110,8 +110,42 @@ public class UtenteControl extends HttpServlet {
 			}
 			
 			if(action.equals("settingUtente")) {
-				UtenteDM utenteUpdate;
-				UtenteBean utenteBean;
+				UtenteDM utenteUpdate = new UtenteDM();
+				UtenteBean utenteBean = new UtenteBean(); 
+				utenteBean.setId(utente.getId());
+				utenteBean.setNome(request.getParameter("nome"));
+				utenteBean.setCognome(request.getParameter("cognome"));
+				Date data = null;
+				SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+				try {
+					data = inputFormat.parse(request.getParameter("Data"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String formattedDate = outputFormat.format(data);
+				Date finalDate;
+		        try {
+		            finalDate = outputFormat.parse(formattedDate);
+		        } catch (ParseException e) {
+		            System.out.println("Errore nel parsing della data finale.");
+		            return;
+		        }
+		        utenteBean.setDataNascita(finalDate);
+		        utenteBean.setMail(request.getParameter("email"));
+		        utenteBean.setPassword(request.getParameter("password"));
+		        try {
+					utenteUpdate.doUpdate(utenteBean);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        response.getWriter().write("1");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo-Utente.jsp");
+				dispatcher.forward(request, response);
+				
+				
 				
 			}
 		}

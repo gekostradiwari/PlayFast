@@ -49,7 +49,7 @@ public class UtenteDM implements Utente{
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + UtenteDM.TABLE_NAME
-						 + " (email, password, nome, cognome, dataNascita) VALUES (?,?,?,?,?)";
+						 + " (mail, password, nome, cognome, dataNascita,id) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -59,6 +59,7 @@ public class UtenteDM implements Utente{
 			preparedStatement.setString(3, utente.getNome());
 			preparedStatement.setString(4, utente.getCognome());
 			preparedStatement.setDate(5,new java.sql.Date(utente.getDataNascita().getTime()));
+			preparedStatement.setInt(6, utente.getId());
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -155,6 +156,7 @@ public class UtenteDM implements Utente{
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
+				bean.setId(rs.getInt("id"));
 			}
 
 		} finally {
@@ -174,7 +176,7 @@ public class UtenteDM implements Utente{
 
 		UtenteBean bean = null;
 
-		String selectSQL = "SELECT * FROM " + UtenteDM.TABLE_NAME + " WHERE email = ?";
+		String selectSQL = "SELECT * FROM " + UtenteDM.TABLE_NAME + " WHERE mail = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -185,11 +187,12 @@ public class UtenteDM implements Utente{
 
 			while (rs.next()) {
 				bean = new UtenteBean();
-				bean.setMail(rs.getString("email"));
+				bean.setMail(rs.getString("mail"));
 				bean.setPassword(rs.getString("password"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setDataNascita(new java.util.Date(rs.getDate("dataNascita").getTime()));
+				bean.setId(rs.getInt("id"));
 			}
 
 		} finally {

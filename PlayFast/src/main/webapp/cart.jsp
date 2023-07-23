@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import = "java.util.*"
+    import = "model.beans.ProductBean"
+    import = "model.beans.Carrello"%>
+    <%
+	Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
+	ArrayList<ProductBean> products = null;
+	if(carrello != null)	
+		products = carrello.getProducts();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +30,12 @@
 	<div class="container">
 		<h1>Il tuo Carrello</h1>
 		<div class="cart">
+			<%for(ProductBean product : products){%>
 			<div class="cart-item">
-				<img src="product1.jpg" alt="Product 1">
+				<img src="<%=product.getUrlImmagine()%>" alt="Product 2">
 				<div class="cart-item-content">
-					<h2 class="cart-item-title">Prodotto 1</h2>
-					<p class="cart-item-price">Prezzo: $19.99</p>
+					<h2 class="cart-item-title"><%=product.getNome()%></h2>
+					<p class="cart-item-price"><%=product.getPrezzo() %></p>
 					<div class="cart-item-remove">
 						<button>
 							<i class="fas fa-trash"></i> Rimuovi
@@ -33,18 +43,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="cart-item">
-				<img src="product2.jpg" alt="Product 2">
-				<div class="cart-item-content">
-					<h2 class="cart-item-title">Prodotto 2</h2>
-					<p class="cart-item-price">Prezzo: $24.99</p>
-					<div class="cart-item-remove">
-						<button>
-							<i class="fas fa-trash"></i> Rimuovi
-						</button>
-					</div>
-				</div>
-			</div>
+			<%}%>
+			
 			<!-- Add more cart items here -->
 		</div>
 	</div>

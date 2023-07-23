@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="cart-item">
+			<!-- <div class="cart-item">
 				<img src="product2.jpg" alt="Product 2">
 				<div class="cart-item-content">
 					<h2 class="cart-item-title">Prodotto 2</h2>
@@ -43,7 +43,7 @@
 							<i class="fas fa-trash"></i> Rimuovi
 						</button>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!-- Add more cart items here -->
 		</div>

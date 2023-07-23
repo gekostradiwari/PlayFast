@@ -369,7 +369,7 @@ public class AdminControl extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println(action);
 		if(action.equals("aggiungiProdotto")) {
-			String uploadPath = "/IMG";
+			String uploadPath = "C:\\Users\\lukes\\git\\repository\\PlayFast\\src\\main\\webapp\\IMG";
 			
 			String filePath ="";
 			 try {
@@ -432,7 +432,7 @@ public class AdminControl extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("operazione", "L'aggiunta del prodotto al catalogo � avvenuta con successo");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/operazione.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
 			dispatcher.forward(request, response);
 		}
 		

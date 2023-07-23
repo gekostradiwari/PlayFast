@@ -16,12 +16,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DAOS.FeedbackDM;
 import model.DAOS.ProductModelDM;
 import model.beans.Carrello;
 import model.beans.FeedbackBean;
 import model.beans.ProductBean;
+import model.beans.UtenteBean;
 
 @WebServlet("/ProductControl")
 public class ProductControl extends HttpServlet {
@@ -30,6 +32,8 @@ public class ProductControl extends HttpServlet {
 	private static ProductModelDM model = new ProductModelDM();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session2 = request.getSession();
+		UtenteBean utente = (UtenteBean) session2.getAttribute("Utente");
 		//CARRELLO
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 		if(carrello == null) {
@@ -39,7 +43,6 @@ public class ProductControl extends HttpServlet {
 		//FINE CARRELLO
 				
 		String action = request.getParameter("action");
-		
 		if(action != null) {
 			if(action.equals("ViewProdotti")) {
 				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
@@ -70,12 +73,12 @@ public class ProductControl extends HttpServlet {
 			
 			if(action.equals("AddToCarrello")) {
 				try {
-					carrello.addProduct(Integer.getInteger(request.getParameter("codice")));
+					carrello.addProduct(Integer.valueOf(request.getParameter("codice")));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				request.getSession().setAttribute("carrello", carrello);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/carrello.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
 				dispatcher.forward(request, response);
 			}
 			
@@ -116,11 +119,18 @@ public class ProductControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				request.setAttribute("prodotti", prodotti);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/FirstPage.jsp");
-				dispatcher.forward(request, response);
+				if(utente == null) {
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/FirstPage.jsp");
+					dispatcher.forward(request, response);
+				}
+				else {
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/FirstPage-Utente.jsp");
+					dispatcher.forward(request, response);
+				}
+				
 				
 			}
-		}
+		}		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

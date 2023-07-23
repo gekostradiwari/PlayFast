@@ -53,7 +53,7 @@ public class LoginControl extends HttpServlet {
 				session.setAttribute("Utente", utente);
 				Cookie c = new Cookie("User","true");
 				c.setSecure(true);
-				c.setMaxAge(0);
+				c.setMaxAge(-1);
 				c.setPath("/");
 				response.addCookie(c);
 				response.getWriter().write("1");

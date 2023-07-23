@@ -365,7 +365,7 @@ public class ProductModelDM implements ProductModel {
 		ArrayList<ProductBean> products = new ArrayList<ProductBean>();
 
 		String selectSQL = "SELECT * FROM " + ProductModelDM.TABLE_NAME + ","+"ora"
-						 + " WHERE product.citta = ? AND product.dataCampo = ? AND product.tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora = ?";
+						 + " WHERE product.citta = ? AND product.dataCampo = ? AND product.tipo = ? AND ora.id_campo = product.id AND ora.disponibiita = 1 AND ora.ora >= ?";
 	//
 
 		try {

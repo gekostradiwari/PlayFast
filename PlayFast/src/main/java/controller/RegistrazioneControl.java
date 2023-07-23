@@ -41,13 +41,29 @@ public class RegistrazioneControl extends HttpServlet {
 			utente.setNome(request.getParameter("nome"));
 			utente.setCognome(request.getParameter("cognome"));
 			Date data = null;
+			SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
 			try {
-				data = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dataNascita"));
+				data = inputFormat.parse(request.getParameter("DataNascita"));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			utente.setDataNascita(data);
+			SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = outputFormat.format(data);
+			Date finalDate;
+	        try {
+	            finalDate = outputFormat.parse(formattedDate);
+	        } catch (ParseException e) {
+	            System.out.println("Errore nel parsing della data finale.");
+	            return;
+	        }
+			utente.setDataNascita(finalDate);
+			try {
+				utente.setId(utenteDAO.getIdCodice());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			boolean flag = true;
 			try {
@@ -56,6 +72,8 @@ public class RegistrazioneControl extends HttpServlet {
 				e.printStackTrace();
 			}	
 			response.getWriter().write("1");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Sign-in.jsp");
+			dispatcher.forward(request, response);
 		} else {
 			response.getWriter().write("0");
 		}
