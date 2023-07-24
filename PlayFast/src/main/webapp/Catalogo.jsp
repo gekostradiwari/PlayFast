@@ -19,14 +19,13 @@
 </head>
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
 				<div class="col-lg-6 col-md-8 mx-auto">
-					<h1 class="fw-light">Il tuo sport preferito</h1>
-					<p class="lead text-body-secondary">Sempre a portata di mano e
-						vicino a te.</p>
+					<h1 class="fw-light">Il tuo catalogo</h1>
+					
 				</div>
 			</div>
 		</section>
@@ -35,7 +34,7 @@
 		<% ArrayList<ProductBean> campi = (ArrayList<ProductBean>)request.getAttribute("prodotti");
 			  
 				 if( campi == null || campi.isEmpty()){ %>
-			 	<p id=emptyCampiListTitle>Non ci sono campi disponibili secondo queste richieste.</p>
+			 	<p id=emptyCampiListTitle>Non ci sono campi.</p>
 			 <%}else{ %>
 			 
 			 	<section id=campiSection>

@@ -47,20 +47,16 @@
                             </div>
                             <span class="text-body-secondary"><%= product.getPrezzo() %>$</span>
                         </li>
-                    </ul>
-                    <% } %>
-                   
-                        <li class="list-group-item d-flex justify-content-between">
+                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (EUR)</span>
                             <strong><%= sum%></strong>
                         </li>
+                   
                     </ul>
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Codice promo">
-                            <button type="submit" class="btn btn-secondary">Riscatta</button>
-                        </div>
-                    </form>
+                    <% } %>
+                   
+                    </ul>
+                    
                 </div>
                  <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Indirizzo di fatturazione</h4>
@@ -162,7 +158,8 @@
                             </div>
                         </div>
                         <hr class="my-4">
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Conferma Pagamento</button>
+                      <a href="Successo.jsp">Concludi Ordine</a>  
+                        <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Conferma Pagamento</button> -->
                     </form>
                 </div>
             </div>

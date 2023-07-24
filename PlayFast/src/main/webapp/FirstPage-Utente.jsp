@@ -108,7 +108,7 @@
 	</main>
     <jsp:include page="footer.jsp"></jsp:include>
 
-   <script src="./SCRIPT/FirstPage-Utente.js"></script>
+  	<!-- <script src="./SCRIPT/FirstPage-Utente.js"></script> --> 
     <script src="./SCRIPT/FirstPage.bundle.min.js"></script>
 </body>
 </html>

@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class="btn-container">
-		<a href="Sign-in.jsp">Prosegui al pagamento</a>
+		<a href="checkout.jsp">Prosegui al pagamento</a>
 		<!--<button class="btn">Prosegui al pagamento</button>-->
 	</div>
 
