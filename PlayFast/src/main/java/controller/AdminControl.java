@@ -49,12 +49,16 @@ import model.beans.*;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // Dimensione soglia di 2MB
 maxFileSize = 1024 * 1024 * 10,      // Dimensione massima del file di 10MB
 maxRequestSize = 1024 * 1024 * 50)  // Dimensione massima della richiesta di 50MB
+
+
 public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UtenteBean utente = (UtenteBean) session.getAttribute("Utente");
+		// Per accedere all'oggetto AdminBean dalla sessione:
 		AdminBean admin = (AdminBean) session.getAttribute("Admin");
+		// Per accedere all'oggetto UtenteBean dalla sessione:
+		UtenteBean utente = (UtenteBean) session.getAttribute("Utente");
 		if(utente == null && admin == null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);

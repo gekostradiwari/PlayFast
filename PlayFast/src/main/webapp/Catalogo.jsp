@@ -2,23 +2,25 @@
     pageEncoding="ISO-8859-1"
     import = "java.util.*"
     import = "model.beans.ProductBean"
-    import = "model.beans.Carrello"%>
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FirstPage-Utente</title>
-    <link href="./CSS/FirstPage.min.css" rel="stylesheet">
-    <link href="./CSS/FirstPage.css" rel="stylesheet">
-    <link href="./CSS/InitPage.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    import = "model.beans.Carrello"
     
+    %>
+    
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalogo</title>
+<link href="./CSS/FirstPage.min.css" rel="stylesheet">
+<link href="./CSS/FirstPage.css" rel="stylesheet">
+<link href="./CSS/InitPage.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>
-    <jsp:include page="Header+profilo.jsp"></jsp:include>
-    
-    <main>
+
+	<jsp:include page="header.jsp"></jsp:include>
+	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
 				<div class="col-lg-6 col-md-8 mx-auto">
@@ -43,7 +45,7 @@
 					<div class="container">
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 					<div class="col">
-			 		<div class="card shadow-sm">
+						<div class="card shadow-sm">
 							<svg class="bd-placeholder-img card-img-top" width="100%"
 								height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 								aria-label="Placeholder: Thumbnail"
@@ -55,12 +57,12 @@
               </svg>
 							<div class="card-body">
 							<h1><%=campo.getNome()%></h1>
-							<input type="text" hidden="hidden" name="codice" value="<%=campo.getId()%>">
+							<div name="codice" value="<%=campo.getId()%>">
 							<p class="card-text"><%=campo.getIndirizzo()%></p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-									<!--  <input type="text" hidden="hidden" name="action" value="AddToCarrello"> --> 
-										<button name="action" value="AddToCarrello" class="btn btn-sm btn-outline-secondary" id="addCart">Add
+										<button type="button" class="btn btn-sm btn-outline-secondary"
+										 name="action" value="ViewProdotti">Add
 											Cart</button>
 									</div>
 								</div>
@@ -90,7 +92,7 @@
 								<p class="card-text">Il centro sportivo Ludi nasce nel
 									Giugno del 1997 da unidea di Ernesto che aveva il sogno di
 									creare un centro di aggregazione, divertimento e
-									socializzazione per la comunit‡ Terzignese e non solo.</p>
+									socializzazione per la comunit√† Terzignese e non solo.</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">Add
@@ -106,9 +108,10 @@
 			</div>
 		</div>
 	</main>
-    <jsp:include page="footer.jsp"></jsp:include>
 
-   <script src="./SCRIPT/FirstPage-Utente.js"></script>
-    <script src="./SCRIPT/FirstPage.bundle.min.js"></script>
+	<jsp:include page="footer.jsp"></jsp:include>
+
+  	<script src="./SCRIPT/FirstPageUtente.js"></script>
+	<script src="./SCRIPT/FirstPage.bundle.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,9 @@ public class RegistrazioneControl extends HttpServlet {
 		if(utente == null) {			
 			utente = new UtenteBean();
 			utente.setMail(request.getParameter("email"));
-			utente.setPassword(request.getParameter("password"));
+			String password = request.getParameter("password");
+			//password = toHash(password);
+			utente.setPassword(password);
 			utente.setNome(request.getParameter("nome"));
 			utente.setCognome(request.getParameter("cognome"));
 			Date data = null;
@@ -78,5 +81,26 @@ public class RegistrazioneControl extends HttpServlet {
 			response.getWriter().write("0");
 		}
 		
+	}
+	
+	private String toHash(String password)
+	{
+		String hashString = null;
+		try
+		{
+			java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+			hashString = "";
+			for (int i=0; i<hash.length; i++)
+			{
+				hashString += Integer.toHexString((hash[i] & 0xFF) | 0x100).toLowerCase().substring(1, 3);
+			}
+		}
+		catch (java.security.NoSuchAlgorithmException e)
+		{
+			System.err.println(e);
+		}
+		
+		return hashString;
 	}
 }

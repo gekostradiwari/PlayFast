@@ -142,9 +142,10 @@ public class ProductModelDM implements ProductModel {
 				bean.setStruttura(rs.getString("struttura"));
 				bean.setDataCampo(new java.sql.Date(rs.getDate("dataCampo").getTime()));
 				bean.setTipo(rs.getString("tipo"));
-				bean.setEmail(rs.getString("email"));
+				bean.setEmail(rs.getString("mail"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setUrlImmagine(rs.getString("url_immagine"));
+				bean.setUrlImmagine(rs.getString("urlImmagine"));
+				bean.setCitta(rs.getString("citta"));
 				bean.setId_admin(rs.getInt("id_admin"));
 				
 			}

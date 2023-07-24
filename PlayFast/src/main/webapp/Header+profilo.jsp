@@ -7,11 +7,11 @@
 			<div class="row">
 				<div class="col-sm-8 col-md-7 py-4">
 					<h4>About</h4>
-					<p class="text-body-secondary">Add some information about the
-						album below, the author, or any other background context. Make it
-						a few sentences long so folks can pick up some informative
-						tidbits. Then, link them off to some social networking sites or
-						contact information.</p>
+					<p class="text-body-secondary">Benvenuti in PLAY FAST, la piattaforma online che ti 
+						consente di scegliere l'impianto sportivo piu' adatto alle tue esigenze. Abbiamo
+						 deciso di creare questo spazio per poter facilitare la scelta del campo che piu'
+						  puo' fare al caso tuo!<br> Calcio, Basket, Padel, Tennis, Pallavolo... Ora Tocca a te!
+						   Basta un click e la partita e' pronta! </p>
 				</div>
 				<div class="col-sm-4 offset-md-1 py-4">
 					<button type="button"
@@ -32,8 +32,8 @@
 						<img class="bi me-2 opacity-50 theme-icon"
 							src="./IMG/cart.jpg" alt="Icona" width="auto" height="35">
 						<svg class="bi ms-auto d-none" width="auto" height="35px">
-    <use href="#check2"></use>
-  </svg>
+   							 <use href="#check2"></use>
+ 						 </svg>
 					</button>
 
 

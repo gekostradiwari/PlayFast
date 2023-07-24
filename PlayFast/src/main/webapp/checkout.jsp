@@ -1,5 +1,15 @@
+<%@page import="java.util.Collection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="model.beans.Carrello"
+    import="model.beans.*"
+    import="java.util.*"%>
+    
+<%
+	Carrello carrello = (Carrello) session.getAttribute("carrello");
+    ArrayList<ProductBean> prodotti = carrello.getProducts();
+%>
+
 <!doctype html>
 <html>
 <head>
@@ -24,38 +34,25 @@
                         <span class="text-primary">La tua carta</span>
                         <span class="badge bg-primary rounded-pill">3</span>
                     </h4>
+                     <%
+                     int sum = 0;
+                     for(ProductBean product : prodotti){ 
+                     	sum += product.getPrezzo();
+                     %>
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
-                                <h6 class="my-0">Prenotazione 1</h6>
-                                <small class="text-body-secondary">Brief description</small>
+                                <h6 class="my-0"><%= product.getNome() %></h6>
+                                <small class="text-body-secondary"><%= product.getIndirizzo() %></small>
                             </div>
-                            <span class="text-body-secondary">€12</span>
+                            <span class="text-body-secondary"><%= product.getPrezzo() %>$</span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Prenotazione 2</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">€8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Prenotazione 3</h6>
-                                <small class="text-body-secondary">Brief description</small>
-                            </div>
-                            <span class="text-body-secondary">€5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-                            <div class="text-success">
-                                <h6 class="my-0">Codice sconto</h6>
-                                <small>ESEMPIO CODICE</small>
-                            </div>
-                            <span class="text-success">−€5</span>
-                        </li>
+                    </ul>
+                    <% } %>
+                   
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (EUR)</span>
-                            <strong>€20</strong>
+                            <strong><%= sum%></strong>
                         </li>
                     </ul>
                     <form class="card p-2">
@@ -79,14 +76,7 @@
                                 <input type="text" class="form-control" id="lastName" placeholder="Rossi" value="" required>
                                 <div class="invalid-feedback">Valid last name is required.</div>
                             </div>
-                            <div class="col-12">
-                                <label for="username" class="form-label">Username</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text">@</span>
-                                    <input type="text" class="form-control" id="username" placeholder="Username" required>
-                                    <div class="invalid-feedback">Your username is required.</div>
-                                </div>
-                            </div>
+                           
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-body-secondary">(Opzionale)</span></label>
                                 <input type="email" class="form-control" id="email" placeholder="mario@rossi.com">

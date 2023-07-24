@@ -47,7 +47,7 @@
 			type="text" placeholder="" aria-label="">
 		<div class="navbar-nav">
 			<div class="nav-item text-nowrap">
-				<a class="nav-link px-3" href="#">Sign out</a>
+				<a class="nav-link px-3" href="/PlayFast/servletLogout">Log out</a>
 			</div>
 		</div>
 	</header>

@@ -3,6 +3,8 @@
     import = "java.util.*"
     import = "model.beans.ProductBean"
     import = "model.beans.Carrello"
+    import = "model.*"
+    import = "controller.*"
     
     %>
     
@@ -41,6 +43,10 @@
 			 	<section id=campiSection>
 			 	<%for (ProductBean campo:campi){ %>
 			 	<form method="GET" action="/PlayFast/ProductControl">
+			 		<div class="album py-5 bg-body-tertiary">
+					<div class="container">
+					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+					<div class="col">
 			 		<div class="card shadow-sm">
 							<svg class="bd-placeholder-img card-img-top" width="100%"
 								height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -58,8 +64,8 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 									<input type="hidden" name="codice" value="<%=campo.getId() %>">
-										<input type="hidden" name="action" value="AddToCarrello">
-										<button type="button" class="btn btn-sm btn-outline-secondary" >Add
+										<input type="text" hidden="hidden" name="action" value="AddToCarrello">
+										<button name="action" value="AddToCarrello" class="btn btn-sm btn-outline-secondary" >Add
 											Cart</button>
 									</div>
 								</div>

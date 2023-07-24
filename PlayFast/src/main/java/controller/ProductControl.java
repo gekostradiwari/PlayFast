@@ -43,6 +43,7 @@ public class ProductControl extends HttpServlet {
 		//FINE CARRELLO
 				
 		String action = request.getParameter("action");
+		System.out.println(action);
 		if(action != null) {
 			if(action.equals("ViewProdotti")) {
 				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();
@@ -72,23 +73,39 @@ public class ProductControl extends HttpServlet {
 			}
 			
 			if(action.equals("AddToCarrello")) {
-				System.out.println("Ciao");
 				try {
-					carrello.addProduct(Integer.valueOf(request.getParameter("codice")));
-					System.out.println(Integer.valueOf(request.getParameter("codice")));
+					carrello.addProduct(Integer.parseInt(request.getParameter("codice")));
+					//System.out.println(Integer.valueOf(request.getParameter("codice")));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				request.getSession().setAttribute("carrello", carrello);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
-				dispatcher.forward(request, response);
+				RequestDispatcher dispatcher = null;
+				if(utente == null) {
+					request.getSession().setAttribute("carrello", carrello);
+					dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
+					dispatcher.forward(request, response);
+					}
+					else {
+						request.getSession().setAttribute("carrello", carrello);
+						dispatcher = getServletContext().getRequestDispatcher("/cart-utente.jsp");
+						dispatcher.forward(request, response);
+					}
+					
 			}
 			
 			if(action.equals("RemoveToCarrello")) {
-				carrello.removeProduct(Integer.getInteger(request.getParameter("codice")));
+				carrello.removeProduct(Integer.parseInt(request.getParameter("codice")));
+				RequestDispatcher dispatcher = null;
+				if(utente == null) {
 				request.getSession().setAttribute("carrello", carrello);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/carrello.jsp");
+				dispatcher = getServletContext().getRequestDispatcher("/cart.jsp");
+				}
+				else {
+					request.getSession().setAttribute("carrello", carrello);
+					dispatcher = getServletContext().getRequestDispatcher("/cart-utente.jsp");
+				}
 				dispatcher.forward(request, response);
+				
 			}	
 			if(action.equals("getCampiPerData")) {
 				ArrayList<ProductBean> prodotti = new ArrayList<ProductBean>();

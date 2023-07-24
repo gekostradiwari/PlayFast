@@ -51,7 +51,9 @@ $(document).ready(function() {
 });
 
 function apriCarrello() {
-      // Aggiungi qui la logica per aprire il carrello
-      console.log("Carrello aperto!");
+        location.reload();
+        window.location.href = 'checkout.jsp';
     }
+    document.querySelector('#addCart').addEventListener('click', apriCarrello);
+    
  
